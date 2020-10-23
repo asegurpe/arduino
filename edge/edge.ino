@@ -10,7 +10,7 @@ int lastButtonState = 0;
 void setup() {
   pinMode(buttonPin, INPUT);
   pinMode(ledPin, OUTPUT);
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 void loop() {
