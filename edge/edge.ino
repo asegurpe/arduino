@@ -1,14 +1,15 @@
 // this constant won't change:
-const int  buttonPin = 2;    // the pin that the pushbutton is attached to
+const int  buttonPin = 2;
+const int ledPin = 13;
 
 // Variables will change:
-int buttonState = 0;         // current state of the button
-int lastButtonState = 0;     // previous state of the button
+int buttonPushCounter = 0;
+int buttonState = 0;
+int lastButtonState = 0;
 
 void setup() {
-  // initialize the button pin as a input:
   pinMode(buttonPin, INPUT);
-  // initialize serial communication:
+  pinMode(ledPin, OUTPUT);
   Serial.begin(9600);
 }
 
@@ -17,11 +18,17 @@ void loop() {
   buttonState = digitalRead(buttonPin);
   if (buttonState != lastButtonState) {
     if (buttonState == HIGH) {
+      buttonPushCounter++;
       Serial.println("rising edge");
     } else {
       Serial.println("falling edge");
     }
-    lastButtonState = buttonState;
     delay(50);
+    if (buttonPushCounter % 2 == 0) {
+      digitalWrite(ledPin, HIGH);
+    } else {
+      digitalWrite(ledPin, LOW);
+    }
   }
+  lastButtonState = buttonState;  
 }
